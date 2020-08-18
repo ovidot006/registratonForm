@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>TIIDELAB Signup Form</title>
+	<style>
+		input{
+			width: 80%;
+			padding: 10px;
+			margin: 10px 20px;
+			border-radius: 10px;
+		}
+		.submit{
+			background-color: slateblue;
+			width: 85%;
+			color: snow;
+			font-size: 24px;
+		}
+		input:focus{
+			background-color: salmon;
+			color: seashell;
+			outline: none;
+		}
+		h3{
+			color: slateblue;
+			margin: 15px;
+			font-size: 32px;
+		}
+		.form-container, .instruction{
+			float: left;
+			width: 50%;;
+		}
+		@media screen and (max-width:800px){
+			.form-container, .instruction{
+				width: 100%;
+			}
+		}
+	</style>
+</head>
+<body style="background-color: mediumpurple;">
+	
+	<div style="background-color: mistyrose; height: 60%;
+							width: 70%;
+							padding: 5px;
+							border-radius: 10px;
+							margin: 100px auto;">
+
+		<div  class="instruction" >
+			<img src="/learning.jpg" alt="learn" style="max-width: 100%;">
+		</div>
+		
+		<div class="form-container" style="background-color:aquamarine;">
+			<h3>Registration Form</h3>
+
+			<form action="" name="signupForm" id="signupForm" onsubmit="processForm()">
+				<input type="text" name="fullName" id="fullName" placeholder="Enter your Full Name" required>
+				<input type="email" name="email" id="email" placeholder="Enter you Email Address" required>
+				<input type="text" name="username" id="username" placeholder="Enter your Username" required>
+				<input type="password" name="password" id="password" placeholder="Enter you Password" required>
+				<input type="password" name="cpassword" id="confirmPassword" placeholder="Enter your password again" required>
+				<input type="submit" value="Signup" class="submit">
+			</form>
+
+
+
+		</div>
+		<div style="clear: left;"></div>
+
+	</div>
+   <script>
+		 function processForm(){
+		 var fullName = document.getElementById('fullName').value
+				 email = document.getElementById('email').value
+				 username = document.getElementById('username').value
+				 password = document.getElementById('password').value
+				 cpassword = document.getElementById('confirmPassword').value
+			if(password != cpassword){
+				alert('Wrong password')
+			}
+			else{
+				var data ={
+					"fullName": fullName,
+					"email": email,
+					"username": username,
+					"newPassword": password,
+					"isEnabled": true,
+					"roles":["user"]
+				}
+				fetch('https://api.openclass.ng/Register',{
+					method: 'POST',
+					body: JSON.stringify(data),
+					headers:{
+						'content-type':'application/json'
+					}
+				}).then(function(data){
+					alert('congrats')
+				})
+			}
+		 }
+	 </script>
+	
+	
+</body>
+</html>
